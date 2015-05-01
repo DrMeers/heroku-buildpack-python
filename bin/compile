@@ -170,7 +170,7 @@ source $BIN_DIR/steps/cryptography
 # TODO: allow cascading in included requirements files?
 if (grep -Fiq "\${" requirements.txt) then
   puts-step "Substituting environment variables within requirements.txt"
-  env | sed 's/[\%]/\\&/g;s/\([^=]*\)=\(.*\)/s%${\1}%\2%/' > /tmp/env.sed && {
+  sub-env env | sed 's/[\%]/\\&/g;s/\([^=]*\)=\(.*\)/s%${\1}%\2%/' > /tmp/env.sed && {
      sed -f /tmp/env.sed -i.orig requirements.txt && rm /tmp/env.sed
   }
 fi
